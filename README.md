@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# 🚀 RM Tool — Sistema de Gestão de Riscos em Projetos de Software (EM ANDAMENTO)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Proposta inicial:**
 
-## Available Scripts
+O **RM Tool** é uma aplicação web desenvolvida para o gerenciamento de riscos tecnológicos em projetos de software.  
+A ferramenta permite cadastrar, visualizar e gerenciar riscos de forma prática e intuitiva, auxiliando equipes na mitigação de falhas e vulnerabilidades.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🧩 Tecnologias Utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🖥️ Frontend
+- **React.js** (sem Tailwind)
+- **CSS puro** para estilização
+- **Axios** para integração com o backend
+- **HTML5 / JavaScript (ES6+)**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ⚙️ Backend
+- **Java 17+**
+- **Spring Boot**
+- **Spring Data JPA**
+- **MySQL** (banco de dados relacional)
+- **Maven** para gerenciamento de dependências
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧠 Estrutura do Projeto
 
-### `npm run build`
+```
+RM-Tool/
+│
+├── frontend-react/             # Aplicação React
+│   ├── src/
+│   │   ├── components/         # Componentes visuais (Navbar, Tabelas, Formulários)
+│   │   ├── pages/              # Páginas: Dashboard, Projetos, Tecnologias, Riscos
+│   │   ├── services/           # Integração com API (Axios)
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── package.json
+│   └── public/
+│
+├── backend-java/               # API REST com Spring Boot
+│   ├── src/
+│   │   ├── main/java/com/rmtool/
+│   │   │   ├── controller/     # Endpoints REST
+│   │   │   ├── model/          # Entidades (JPA)
+│   │   │   ├── repository/     # Repositórios do banco
+│   │   │   └── service/        # Regras de negócio
+│   │   └── resources/
+│   │       └── application.properties
+│   ├── pom.xml
+│
+└── README.md
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚙️ Como Executar o Projeto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1️⃣ Clonar o repositório
+```bash
+git clone https://github.com/seu-usuario/rm-tool.git
+cd rm-tool
+```
 
-### `npm run eject`
+### 2️⃣ Configurar o Backend (Java)
+```bash
+cd backend-java
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Configure o arquivo `application.properties`:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/rmtool
+spring.datasource.username=root
+spring.datasource.password=suasenha
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+server.port=8080
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Execute o backend:
+```bash
+./mvnw spring-boot:run
+```
+> O servidor iniciará em **http://localhost:8080**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 3️⃣ Rodar o Frontend (React)
+```bash
+cd ../frontend-react
+npm install
+npm start
+```
+> O frontend iniciará em **http://localhost:3000**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔗 Comunicação entre Frontend e Backend
 
-### Code Splitting
+O React se comunica com o backend Java via **API REST**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+[React Frontend] → (Axios/Fetch) → [Spring Boot API] → [MySQL]
+```
 
-### Analyzing the Bundle Size
+Exemplo de requisição:
+```js
+import axios from "axios";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+axios.get("http://localhost:8080/api/riscos")
+  .then(res => console.log(res.data))
+  .catch(err => console.error(err));
+```
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🧱 Funcionalidades
 
-### Advanced Configuration
+- ✅ Cadastrar novos riscos em projetos de software 
+- ✅ Listar riscos existentes  
+- ✅ Editar e remover riscos  
+- ✅ Filtro e busca por nome ou categoria  
+- ✅ Integração com MySQL  
+- ✅ Interface responsiva e moderna  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🧑‍💻 Desenvolvido por
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Arthur Moura** — Estudante de Análise e Desenvolvimento de Sistemas - IFPE
 
-### `npm run build` fails to minify
+**Igor Gomes** — Estudante de Análise e Desenvolvimento de Sistemas - IFPE
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Emanuel Dantas** — Professor Orientador - Projeto PIBIC: *Ferramenta Web de Gestão de Riscos Tecnológicos em Projetos de Software.*
+
+---
+
+## 📄 Licença
+Este projeto está sob a licença MIT — veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
