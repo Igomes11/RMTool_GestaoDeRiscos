@@ -40,7 +40,7 @@ export default function RiscosTable({ riscos = [], onDelete }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="search-input"
-              placeholder="Buscar risco ou categoria..."
+              placeholder="Buscar risco..."
             />
             <button className="search-btn" aria-label="Buscar"><IconSearch /></button>
           </div>
@@ -62,10 +62,10 @@ export default function RiscosTable({ riscos = [], onDelete }) {
             <tr>
               <th>ID</th>
               <th>NOME</th>
-              <th>DESCRIÇÃO</th>
+              <th>TECNOLOGIA</th>
               <th>CATEGORIA</th>
               <th>EDITAR</th>
-              <th>REMOVER</th>
+              <th>EXCLUIR</th>
             </tr>
           </thead>
 
@@ -76,7 +76,7 @@ export default function RiscosTable({ riscos = [], onDelete }) {
               <tr key={r.id}>
                 <td className="col-id">{r.id}</td>
                 <td className="col-name">{r.nome}</td>
-                <td className="col-desc">{r.descricao}</td>
+                <td className="col-desc">{r.tecnologia}</td>
                 <td className="col-cat">{r.categoria}</td>
                 <td className="col-action">
                   <button

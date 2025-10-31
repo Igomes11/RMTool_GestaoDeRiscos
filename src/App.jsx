@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import RiscosTable from "./components/RiscosTable";
@@ -9,22 +9,17 @@ import AddRiscoForm from "./components/AddRiscoForm";
   Em produção você pode mover pra Context or Redux e conectar API.
 */
 
-const initialRiscos = [
-  {
-    id: "R01",
-    nome: "VULNERABILIDADE DO SISTEMA",
-    descricao:
-      "Uma versão antiga do servidor web está desprotegida contra ataques de negação de serviço (DDoS).",
-    categoria: "SEGURANÇA",
-    tecnologia: "Servidor Web",
-  },
-  { id: "R02", nome: "FALHA NA INTEGRAÇÃO", descricao: "DESCRIÇÃO", categoria: "ANÁLISE DE DADOS", tecnologia: "API interna" },
-  { id: "R03", nome: "ATAQUE DE PHISHING", descricao: "DESCRIÇÃO", categoria: "SEGURANÇA", tecnologia: "Email" },
-  { id: "R04", nome: "VAZAMENTO DE CREDENCIAIS", descricao: "DESCRIÇÃO", categoria: "SEGURANÇA", tecnologia: "Banco de Dados" },
-];
 
 export default function App() {
-  const [riscos, setRiscos] = useState(initialRiscos);
+  const [riscos, setRiscos] = useState(() => {
+    const saved = localStorage.getItem("riscos");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("riscos", JSON.stringify(riscos));
+  }, [riscos]);
+
   const navigate = useNavigate();
 
   const handleAdd = (newRisco) => {
@@ -64,7 +59,10 @@ export default function App() {
           path="/editar-risco/:id"
           element={<AddRiscoForm riscos={riscos} onSave={handleUpdate} />}
         />
-        <Route path="*" element={<RiscosTable riscos={riscos} onDelete={handleDelete} />} />
+        <Route
+          path="*"
+          element={<RiscosTable riscos={riscos} onDelete={handleDelete} />}
+        />
       </Routes>
     </>
   );
