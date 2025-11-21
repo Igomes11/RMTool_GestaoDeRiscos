@@ -1,15 +1,14 @@
-/* Fonte base */
+@import "./styles/table.css"; /* Fonte base */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap");
 :root {
-  --bg-dark: #0c0220;
-  --purple-dark: #2b0b57;
+  --bg-dark: #ffffff;
+  --purple-dark: #ffffff;
   --purple-mid: #4f1a9a;
   --accent: #8d4bff;
   --white: #ffffff;
   --muted: #6c6c6c;
   --green: #12c12a;
 }
-
 * {
   box-sizing: border-box;
 }
@@ -22,13 +21,10 @@ body {
   margin: 0;
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial;
-  background: linear-gradient(180deg, #160725 0%, #0b0220 100%);
-  color: #111;
+  background: #f9f7ff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Topbar */
+} /* Topbar */
 .topbar {
   background: linear-gradient(90deg, #4e1a86 0%, #2b0b57 100%);
   padding: 18px 28px;
@@ -85,27 +81,21 @@ body {
   height: 44px;
   background: white;
   border-radius: 50%;
-}
-
-/* Page container */
+} /* Page container */
 .page {
   padding: 28px 20px;
 }
 .container {
   max-width: 1150px;
   margin: 0 auto;
-}
-
-/* Card */
+} /* Card */
 .card {
   background: var(--white);
   border-radius: 12px;
   padding: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   border-top: 6px solid rgba(0, 0, 0, 0.06);
-}
-
-/* controls (filter, search, add) */
+} /* controls (filter, search, add) */
 .controls {
   display: flex;
   align-items: center;
@@ -162,9 +152,7 @@ body {
   cursor: pointer;
   border: none;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* tabela */
+} /* tabela */
 .riscos-table {
   width: 100%;
   border-collapse: collapse;
@@ -215,9 +203,7 @@ body {
 }
 .icon-btn:hover {
   background: rgba(141, 75, 255, 0.06);
-}
-
-/* Form page */
+} /* Form page */
 .form-title {
   font-size: 34px;
   font-weight: 800;
@@ -253,7 +239,7 @@ select {
   font-size: 15px;
   transition: all 0.2s ease;
   background-color: #fff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 .form-actions {
   display: flex;
@@ -277,9 +263,7 @@ select {
   border-radius: 20px;
   font-weight: 700;
   cursor: pointer;
-}
-
-/* Responsividade */
+} /* Responsividade */
 @media (max-width: 900px) {
   .search-input {
     width: 100%;
@@ -295,88 +279,89 @@ select {
   }
   .container {
     padding: 0 10px;
+  } /* === Harmonização de inputs com o react-select === */
+  .input,
+  .textarea,
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  } /* Efeito de foco suave */
+  .input:focus,
+  .textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: #8d4bff; /* mesma cor do tema roxo */
+    box-shadow: 0 0 0 2px rgba(141, 75, 255, 0.25);
+  } /* === Estilo da área de seleção múltipla (react-select) === */
+  .react-select__control {
+    border-radius: 8px !important;
+    border-color: #ccc !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease;
   }
-
-  /* === Harmonização de inputs com o react-select === */
-.input,
-.textarea,
-select {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  transition: all 0.2s ease;
-  background-color: #fff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* Efeito de foco suave */
-.input:focus,
-.textarea:focus,
-select:focus {
-  outline: none;
-  border-color: #8d4bff; /* mesma cor do tema roxo */
-  box-shadow: 0 0 0 2px rgba(141, 75, 255, 0.25);
-}
-
-/* === Estilo da área de seleção múltipla (react-select) === */
-.react-select__control {
-  border-radius: 8px !important;
-  border-color: #ccc !important;
-  box-shadow: none !important;
-  transition: all 0.2s ease;
-}
-.react-select__control--is-focused {
-  border-color: #8d4bff !important;
-  box-shadow: 0 0 0 2px rgba(141, 75, 255, 0.25) !important;
-}
-.react-select__multi-value {
-  background: rgba(141, 75, 255, 0.15) !important;
-  border-radius: 6px;
-}
-.react-select__multi-value__label {
-  color: #4b0d8d !important;
-  font-weight: 600;
-}
-
-/* === Uniformização das labels === */
-.section-label {
+  .react-select__control--is-focused {
+    border-color: #8d4bff !important;
+    box-shadow: 0 0 0 2px rgba(141, 75, 255, 0.25) !important;
+  }
+  .react-select__multi-value {
+    background: rgba(141, 75, 255, 0.15) !important;
+    border-radius: 6px;
+  }
+  .react-select__multi-value__label {
+    color: #4b0d8d !important;
+    font-weight: 600;
+  } /* === Uniformização das labels === */
+  .section-label {
+    display: block;
+    background: #4b0d8d;
+    color: white;
+    padding: 10px 12px;
+    font-weight: 700;
+    border-radius: 4px 4px 0 0;
+  } /* === Ajuste das colunas para melhor alinhamento === */
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .section-two-cols .col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  } /* === Botões === */
+  .btn-save {
+    background: #8d4bff;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .btn-save:hover {
+    background: #6f33d8;
+  }
+  .error-message {
+  color: #dc3545; /* Vermelho padrão de erro */
+  font-size: 0.85rem;
+  margin-top: 4px;
   display: block;
-  background: #4b0d8d;
-  color: white;
-  padding: 10px 12px;
-  font-weight: 700;
-  border-radius: 4px 4px 0 0;
 }
 
-/* === Ajuste das colunas para melhor alinhamento === */
-.two-cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: center;
+.input-error {
+  border-color: #dc3545 !important;
 }
 
-.section-two-cols .col {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+/* Ajuste fino para borda vermelha no React Select */
+.input-error-border .react-select__control {
+  border-color: #dc3545 !important;
 }
-
-/* === Botões === */
-.btn-save {
-  background: #8d4bff;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.btn-save:hover {
-  background: #6f33d8;
-}
-
 }

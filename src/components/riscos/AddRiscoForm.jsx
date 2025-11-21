@@ -9,22 +9,37 @@ export default function AddRiscoForm({ onSave, riscos = [] }) {
 
   // tenta obter dados do estado da navegação (edição via tabela) ou dos params (edição via URL)
   const editingFromState = location.state && location.state.risco;
-  const editingFromParams =
-    params.id && riscos.find((r) => r.id === params.id);
+  const editingFromParams = params.id && riscos.find((r) => r.id === params.id);
 
-  const initial = editingFromState || editingFromParams || {
-    nome: "",
-    categoria: "",
-    descricao: "",
-    tecnologia: [],
-    nivelRisco: "",
-  };
+  const initial = React.useMemo(() => {
+    return (
+      editingFromState ||
+      editingFromParams || {
+        nome: "",
+        categoria: "",
+        descricao: "",
+        tecnologia: [],
+        nivelRisco: "",
+      }
+    );
+  }, [editingFromState, editingFromParams]);
 
   const [form, setForm] = useState(initial);
 
   useEffect(() => {
     setForm(initial);
-  }, [location, params]);
+  }, [location, params, initial]);
+
+  const categoryOptions = [
+    { value: "SEGURANÇA", label: "Segurança" },
+    { value: "ANÁLISE DE DADOS", label: "Análise de Dados" },
+    { value: "OPERACIONAL", label: "Operacional" },
+    { value: "LEGAL", label: "Legal" },
+    { value: "COMPLIANCE", label: "Compliance" },
+    { value: "REPUTAÇÃO", label: "Reputação" },
+    { value: "FINANCEIRO", label: "Financeiro" },
+    { value: "OUTROS", label: "Outros" }
+  ];
 
   const techOptions = [
     { value: "React", label: "React" },
@@ -33,11 +48,24 @@ export default function AddRiscoForm({ onSave, riscos = [] }) {
     { value: "Python", label: "Python" },
     { value: "AWS", label: "AWS" },
     { value: "Docker", label: "Docker" },
-    { value: "Kubernetes", label: "Kubernetes" }, 
+    { value: "Kubernetes", label: "Kubernetes" },
+  ];
+
+  const nivelRiscoOptions = [
+    { value: "1", label: "Baixo" },
+    { value: "2", label: "Médio" },
+    { value: "3", label: "Alto" },
+    { value: "4", label: "Crítico" },
   ];
 
   function handleChange(e) {
     const { name, value } = e.target;
+    setForm((s) => ({ ...s, [name]: value }));
+  }
+
+  // Handler para o react-select
+  function handleSelectChange(name, selected) {
+    const value = Array.isArray(selected) ? selected.map((o) => o.value) : selected ? selected.value : "";
     setForm((s) => ({ ...s, [name]: value }));
   }
 
@@ -71,22 +99,15 @@ export default function AddRiscoForm({ onSave, riscos = [] }) {
               onChange={handleChange}
               className="input"
             />
-            <select
+            <Select
               name="categoria"
-              value={form.categoria}
-              onChange={handleChange}
+              options={categoryOptions}
               className="input"
-            >
-              <option value="">Selecione...</option>
-              <option>SEGURANÇA</option>
-              <option>ANÁLISE DE DADOS</option>
-              <option>OPERACIONAL</option>
-              <option>OUTROS</option>
-              <option>LEGAL</option>
-              <option>COMPLIANCE</option>
-              <option>REPUTAÇÃO</option>
-              <option>FINANCEIRO</option>
-            </select>
+              classNamePrefix="react-select"
+              placeholder="Selecione..."
+              value={categoryOptions.find((c) => c.value === form.categoria)}
+              onChange={(option) => handleSelectChange("categoria", option)}
+            />
           </div>
 
           {/* TECNOLOGIA E NÍVEL */}
@@ -94,40 +115,30 @@ export default function AddRiscoForm({ onSave, riscos = [] }) {
             <div className="col">
               <label className="section-label">TECNOLOGIA:</label>
               <Select
-                isMulti
                 name="tecnologia"
+                isMulti
                 options={techOptions}
                 className="input"
+                classNamePrefix="react-select"
                 placeholder="Selecione..."
-                value={techOptions.filter(opt =>
-                  (form.tecnologia || []).includes(opt.value)
+                value={techOptions.filter((opt) =>
+                  form.tecnologia.includes(opt.value)
                 )}
-                onChange={(selected) =>
-                  setForm({
-                    ...form,
-                    tecnologia: selected
-                      ? selected.map((opt) => opt.value)
-                      : [],
-                  })
-                }
+                onChange={(options) => handleSelectChange("tecnologia", options)}
               />
             </div>
 
             <div className="col">
               <label className="section-label">NÍVEL DO RISCO:</label>
-              <select
+              <Select
                 name="nivelRisco"
-                value={form.nivelRisco}
-                onChange={handleChange}
+                options={nivelRiscoOptions}
                 className="input"
-              >
-                <option value="">Selecione...</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+                classNamePrefix="react-select"
+                placeholder="Selecione..."
+                value={nivelRiscoOptions.find((o) => o.value === form.nivelRisco)}
+                onChange={(option) => handleSelectChange("nivelRisco", option)}
+              />
             </div>
           </div>
 
