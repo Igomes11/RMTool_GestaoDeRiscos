@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AddRiscoForm from "./AddRiscoForm";
 
 /* Ícones simples em SVG para editar/deletar/buscar/filtro/plus */
-const IconSearch = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#111" d="M21 20l-5.6-5.6A7.5 7.5 0 1019.5 18.5L21 20zM5.5 11A5.5 5.5 0 1111 16.5 5.5 5.5 0 015.5 11z"/></svg>
-);
+function IconSearch() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#111" d="M21 20l-5.6-5.6A7.5 7.5 0 1019.5 18.5L21 20zM5.5 11A5.5 5.5 0 1111 16.5 5.5 5.5 0 015.5 11z" /></svg>
+  );
+}
 const IconPlus = () => (
   <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#222" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></svg>
 );
@@ -64,8 +67,7 @@ export default function RiscosTable({ riscos = [], onDelete }) {
               <th>NOME</th>
               <th>TECNOLOGIA</th>
               <th>CATEGORIA</th>
-              <th>EDITAR</th>
-              <th>EXCLUIR</th>
+              <th>AÇÕES</th>
             </tr>
           </thead>
 
@@ -79,18 +81,25 @@ export default function RiscosTable({ riscos = [], onDelete }) {
                 <td className="col-desc">{r.tecnologia}</td>
                 <td className="col-cat">{r.categoria}</td>
                 <td className="col-action">
-                  <button
-                    className="icon-btn"
-                    onClick={() => navigate(`/editar-risco/${r.id}`, { state: { risco: r } })}
-                    title="Editar"
-                  >
-                    <IconEdit />
-                  </button>
-                </td>
-                <td className="col-action">
-                  <button className="icon-btn" onClick={() => onDelete(r.id)} title="Remover">
-                    <IconTrash />
-                  </button>
+               <div className="table-actions">
+                      <button
+                        className="btn-small edit"
+                        onClick={() =>
+                          navigate(`/editar-risco/${r.id}`, {
+                            state: { risco: r },
+                          })
+                        }
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-small delete"
+                        onClick={() => onDelete(r.id)}
+                        title="Remover"
+                      >
+                        Excluir
+                      </button>
+                    </div>
                 </td>
               </tr>
             ))}
